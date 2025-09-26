@@ -1,0 +1,148 @@
+/* --- NAVBAR STYLES --- */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 50;
+  padding: 0.75rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+nav .container {
+  max-width: 1280px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav .logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+nav .logo div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+nav .logo div:first-child {
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: #4338ca;
+}
+
+nav .logo div div:last-child {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+nav .nav-links button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  background: none;
+  position: relative;
+  color: #374151;
+}
+
+nav .nav-links button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+nav .nav-links button:hover {
+  color: #4f46e5;
+}
+
+nav .nav-links button:hover::after {
+  width: 60%;
+}
+
+nav .nav-links .cta-button {
+  background-color: #4f46e5;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+nav .nav-links .cta-button:hover {
+  background-color: #4338ca;
+  color: #fff;
+}
+
+nav .nav-links .cta-button::after {
+  display: none;
+}
+
+nav .mobile-btn {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* --- GENERAL STYLES --- */
+.full-height-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #facc15, #fb923c, #f87171);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.slider-container {
+  overflow-x: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slider-item {
+  scroll-snap-align: center;
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    nav .nav-links {
+        display: none;
+    }
+    nav .mobile-btn {
+        display: block;
+    }
+}

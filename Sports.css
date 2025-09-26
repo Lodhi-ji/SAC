@@ -1,0 +1,560 @@
+/* General Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background: #fff;
+    color: #333;
+}
+
+/* College Header */
+.college-header {
+    background: #004080;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    text-align: center;
+    padding: 5px 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.college-header .header-img {
+    max-height: 50px;
+    width: auto;
+    max-width: 100%;
+}
+
+/* Navbar */
+nav {
+    position: sticky;
+    top: 60px;
+    width: 100%;
+    background: #fff;
+    padding: 8px 0;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #002147;
+}
+
+.nav-logo img {
+    height: 40px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 15px;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    color: #004080;
+}
+
+/* Hero Section with Background Slider */
+.hero-section {
+    margin-top: 60px;
+    height: 65vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.hero-slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 33, 71, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content .logo {
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.hero-content h1 {
+    font-size: 3.2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* General Section Styling */
+.section {
+    padding: 40px 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    color: #002147;
+    margin-bottom: 30px;
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 800px;
+    margin: -15px auto 30px auto;
+    color: #555;
+}
+
+.section-dark {
+    background: #f8f9fa;
+}
+
+/* Sports Section */
+.sports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sport-card {
+    background: #fff;
+    padding: 25px 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sport-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 51, 102, 0.12);
+}
+
+.sport-card i {
+    font-size: 40px;
+    color: #004080;
+    margin-bottom: 15px;
+}
+
+.sport-card h3 {
+    font-size: 17px;
+    color: #333;
+    margin: 0;
+}
+
+/* Events, Achievements, and Energia Section Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 51, 102, 0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    color: #004080;
+    margin-bottom: 10px;
+}
+
+.card-content .icon {
+    font-size: 36px;
+    color: #004080;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Energia Section Specifics */
+.energia-section {
+    background: linear-gradient(rgba(0, 64, 128, 0.85), rgba(0, 33, 71, 0.85)), url('images/Sports/Energia 1.png') no-repeat center center/cover;
+    color: #fff;
+    padding: 40px 20px;
+}
+
+.energia-section .section-title {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.energia-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.energia-logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.energia-details {
+    text-align: left;
+    max-width: 600px;
+}
+
+.energia-details p,
+.energia-details ul {
+    color: #eee;
+}
+
+.energia-details ul {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+/* Core Team Section */
+.core-team h4 {
+    color: #004080;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.tier {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.team-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.org-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-left: 5px solid #004080;
+    border-radius: 8px;
+    padding: 15px;
+    width: 240px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.org-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.org-card h5 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 1.05rem;
+}
+
+.org-card p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s;
+    display: block;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Contact Section */
+.contact-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contact h3 {
+    margin-bottom: 15px;
+    color: #004080;
+    font-size: 1.8em;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.contact-info a {
+    color: #004080;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover {
+    color: #002147;
+    text-decoration: underline;
+}
+
+.contact-info .social-link {
+    display: inline-block;
+    margin: 10px 15px;
+    font-size: 1.2em;
+}
+
+.contact-info .social-link i {
+    margin-right: 5px;
+}
+
+/* Back to Top & Footer */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    font-size: 18px;
+    background: #004080;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: none;
+    transition: opacity 0.3s;
+}
+
+.back-to-top:hover {
+    background: #002050;
+}
+
+.rgipt-footer {
+    background: #003366;
+    color: #ddd;
+    font-size: 0.9rem;
+}
+
+.rgipt-footer a {
+    color: #ffcc66;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.rgipt-footer a:hover {
+    color: white;
+}
+
+.footer-links {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.footer-links ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.footer-links li {
+    padding: 5px 0;
+}
+
+.footer-meta {
+    background: #00264d;
+    text-align: center;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+}
+
+.footer-meta .visitor {
+    float: right;
+    margin-right: 1rem;
+}
+
+.footer-bottom {
+    background: #001933;
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer-bottom ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+
+.footer-bottom ul li {
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.footer-bottom hr {
+    border: 0;
+    height: 1px;
+    background: #555;
+    margin: 10px auto;
+    width: 90%;
+}
+
+.footer-bottom p {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+    }
+
+    nav ul {
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+
+    .tier {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .org-card {
+        width: 90%;
+    }
+
+    .sports-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
+}

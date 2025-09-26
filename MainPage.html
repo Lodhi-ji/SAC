@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAC • RGIPT</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+  <style>
+    /* --- NAVBAR STYLES --- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 50;
+      padding: 0.75rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    nav .container {
+      max-width: 1280px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav .logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    nav .logo div {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    nav .logo div:first-child {
+      font-weight: 800;
+      font-size: 1.125rem;
+      color: #4338ca;
+    }
+
+    nav .logo div div:last-child {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    nav .nav-links button {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      background: none;
+      position: relative;
+      color: #374151;
+    }
+
+    nav .nav-links button::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    nav .nav-links button:hover {
+      color: #4f46e5;
+    }
+
+    nav .nav-links button:hover::after {
+      width: 60%;
+    }
+
+    nav .nav-links .cta-button {
+      background-color: #4f46e5;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+    }
+
+    nav .nav-links .cta-button:hover {
+      background-color: #4338ca;
+      color: #fff;
+    }
+
+    nav .nav-links .cta-button::after {
+      display: none;
+    }
+
+    nav .mobile-btn {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* --- GENERAL STYLES --- */
+    .full-height-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #fb923c, #f87171);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slider-container {
+      overflow-x: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slider-item {
+      scroll-snap-align: center;
+      flex: 0 0 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="font-sans text-gray-900 bg-gray-50">
+
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <img src="./logo.png" alt="RGIPT">
+        <div>
+          <div>SAC • RGIPT</div>
+          <div>Student Activity Center</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <button onclick="scrollToSection('hero')">Home</button>
+        <button onclick="scrollToSection('about')">About SAC</button>
+        <button onclick="scrollToSection('authorities')">Faculty Advisors</button>
+        <button onclick="scrollToSection('councils')">Councils</button>
+        <button onclick="scrollToSection('rules')">Rules</button>
+        <button onclick="scrollToSection('notices')">Notices</button>
+        <button onclick="scrollToSection('events')">Fest Week</button>
+        <button onclick="scrollToSection('contact')" class="cta-button">Contact Us</button>
+      </div>
+      <div class="mobile-btn" onclick="toggleMobileMenu()">☰</div>
+    </div>
+    <div id="mobile-menu"
+      style="display:none; background:#fff; padding:1rem; position:absolute; right:1rem; top:4.5rem; border-radius:1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+      <button onclick="scrollToSection('hero')" class="block w-full text-left p-2">Home</button>
+      <button onclick="scrollToSection('about')" class="block w-full text-left p-2">About SAC</button>
+      <button onclick="scrollToSection('authorities')" class="block w-full text-left p-2">Authorities</button>
+      <button onclick="scrollToSection('councils')" class="block w-full text-left p-2">Councils</button>
+      <button onclick="scrollToSection('rules')" class="block w-full text-left p-2">Rules</button>
+      <button onclick="scrollToSection('notices')" class="block w-full text-left p-2">Notices</button>
+      <button onclick="scrollToSection('events')" class="block w-full text-left p-2">Fest Week</button>
+      <button onclick="scrollToSection('contact')" class="block w-full text-left p-2">Contact</button>
+    </div>
+  </nav>
+
+  <section id="hero" class="h-screen flex flex-col items-center justify-center relative">
+    <div class="relative z-10 text-center max-w-4xl px-4 py-8 rounded-xl shadow-lg bg-white/50 backdrop-blur-md">
+      <h1 id="sac-title" class="text-9xl font-bold text-blue-400 opacity-0">SAC</h1>
+      <h2 id="expanded-title" class="text-4xl font-extrabold mt-16 text-white opacity-0">Student Activity Center</h2>
+      <p id="typing-text" class="text-lg text-white max-w-2xl px-4 mt-8"></p>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 px-6 md:px-16 bg-white">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div data-aos="fade-right">
+        <h2 class="text-4xl font-bold mb-6">About SAC</h2>
+        <p class="mb-4 leading-relaxed text-justify text-gray-700">
+          The Student Activity Center (SAC) at RGIPT is the vibrant heart of campus life. It serves as a hub for
+          creativity, collaboration, and leadership. SAC nurtures talent by providing students with avenues to explore
+          cultural expression, technical innovation, sportsmanship, and social service. With a vision to empower
+          students beyond academics, SAC bridges classroom knowledge with real-world skills. From managing large-scale
+          fests to executing impactful social campaigns, students learn the essence of teamwork and responsibility.
+        </p>
+        <p class="mb-4 leading-relaxed text-justify text-gray-700">
+          SAC believes in inclusivity and diversity. Every student, irrespective of background, finds a place to shine.
+          It is not just about organizing events, but about fostering leadership, resilience, and confidence. Students
+          discover their passions, experiment, fail, learn, and ultimately succeed here.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
+        <a href="#sports" class="w-52 h-52 rounded-full overflow-hidden shadow-lg"><img src="./images/sp.png"
+            class="w-full h-full object-cover" alt="Sports"></a>
+        <a href="#social" class="w-48 h-48 rounded-full overflow-hidden shadow-lg mt-20"><img src="./images/Arpan.png"
+            class="w-full h-full object-cover" alt="Social"></a>
+        <a href="#cultural" class="w-48 h-48 rounded-full overflow-hidden shadow-lg"><img src="./images/cul.png"
+            class="w-full h-full object-cover" alt="Cultural"></a>
+        <a href="#coding" class="w-60 h-60 rounded-full overflow-hidden shadow-lg mt-20">
+          <img src="./images/ur.png" class="w-full h-full object-contain rounded-full bg-black" alt="Coding">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="authorities" class="py-24 px-6 md:px-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold" data-aos="fade-down">Faculty Advisors</h2>
+      </div>
+      <div class="flex flex-col items-center mb-12" data-aos="zoom-in" data-aos-delay="200">
+        <a href="https://www.rgipt.ac.in/faculty/Faculty/FacultyProfile?Sid=YphlfjVffkM%3D" target="_blank"
+          rel="noopener noreferrer" class="text-center">
+          <img src="./images/DeanSir.png" alt="Dr. Debashish Panda"
+            class="w-48 h-48 rounded-full object-cover shadow-xl mb-4 transition-transform transform hover:scale-105">
+          <h3 class="text-2xl font-semibold">Dr. Debashish Panda</h3>
+        </a>
+        <p class="text-gray-600">Dean of Student Affairs</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-aos="fade-up" data-aos-delay="400">
+        <div>
+          <a href="https://www.rgipt.ac.in/faculty/Faculty/FacultyProfile?Sid=3vxn4llYTC4%3D" target="_blank"
+            rel="noopener noreferrer">
+            <img src="./images/KaranSir.png"
+              class="w-32 h-32 rounded-full object-cover mx-auto mb-4 transition-transform transform hover:scale-105">
+            <h4 class="font-semibold">Dr. Karan Malik</h4>
+          </a>
+          <p class="text-sm text-gray-500">Convenor, S&T Council</p>
+        </div>
+        <div>
+          <a href="https://www.rgipt.ac.in/faculty/Faculty/FacultyProfile?Sid=rw6YKdf5qec%3D" target="_blank"
+            rel="noopener noreferrer">
+            <img src="./images/sports.png"
+              class="w-32 h-32 rounded-full object-cover mx-auto mb-4 transition-transform transform hover:scale-105">
+            <h4 class="font-semibold">Dr. Shailesh Kumar</h4>
+          </a>
+          <p class="text-sm text-gray-500">Convenor, Sports Council</p>
+        </div>
+        <div>
+          <a href="https://www.rgipt.ac.in/faculty/Faculty/FacultyProfile?Sid=jRgM71mB8og%3D" target="_blank"
+            rel="noopener noreferrer">
+            <img src="./images/social.png"
+              class="w-32 h-32 rounded-full object-cover mx-auto mb-4 transition-transform transform hover:scale-105">
+            <h4 class="font-semibold">Dr. Arvind Singh</h4>
+          </a>
+          <p class="text-sm text-gray-500">Convenor, Social Council</p>
+        </div>
+        <div>
+          <a href="https://www.rgipt.ac.in/faculty/Faculty/FacultyProfile?Sid=opMJUlUFDY8%3D" target="_blank"
+            rel="noopener noreferrer">
+            <img src="./images/cultural.png"
+              class="w-32 h-32 rounded-full object-cover mx-auto mb-4 transition-transform transform hover:scale-105">
+            <h4 class="font-semibold">Dr. Amit Saxena</h4>
+          </a>
+          <p class="text-sm text-gray-500">Convenor, Cultural Council</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="councils" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto space-y-32 px-6 md:px-16">
+      <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-right">
+        <img src="./images/stlogo.png" alt="S&T Council" class="w-48 mx-auto">
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Science & Technology Council</h3>
+          <p class="mb-6 text-gray-700">The S&T Council is the hub for technical innovation. We organize hackathons,
+            coding workshops, and robotics challenges to foster a passion for technology and problem-solving.</p>
+          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Explore
+            S&T Council</a>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-left">
+        <div class="order-2 md:order-1">
+          <h3 class="text-3xl font-bold mb-4">Cultural Council</h3>
+          <p class="mb-6 text-gray-700">Celebrating arts and expression, the Cultural Council organizes events like
+            dance competitions, music festivals, and theatrical performances to showcase the diverse talents of
+            students.</p>
+          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Explore
+            Cultural Council</a>
+        </div>
+        <img src="./images/culturallogo.png" alt="Cultural Council" class="w-48 mx-auto order-1 md:order-2">
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-right">
+        <img src="./images/sociallogo.png" alt="Social Council" class="w-48 mx-auto">
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Social Council</h3>
+          <p class="mb-6 text-gray-700">The Social Council is dedicated to giving back to the community. We lead
+            initiatives like tree-planting drives, blood donation camps, and educational programs for local children.
+          </p>
+          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Explore
+            Social Council</a>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-left">
+        <div class="order-2 md:order-1">
+          <h3 class="text-3xl font-bold mb-4">Sports Council</h3>
+          <p class="mb-6 text-gray-700">Championing fitness and teamwork, the Sports Council organizes a variety of
+            tournaments and sports events, promoting a healthy and competitive spirit among students.</p>
+          <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Explore
+            Sports Council</a>
+        </div>
+        <img src="./images/sportslogo.png" alt="Sports Council" class="w-48 mx-auto order-1 md:order-2">
+      </div>
+    </div>
+  </section>
+
+  <section id="rules" class="py-24 px-6 md:px-16 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold" data-aos="fade-down">Rules & Regulations</h2>
+        <p class="text-gray-600 mt-4 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="100">Official guidelines
+          established to ensure the smooth, fair, and safe functioning of all student activities.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500" data-aos="fade-right">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Event Approval Protocol</h3>
+          <p class="text-gray-600">All proposed student activities must be submitted via the official SAC portal for
+            approval at least 15 working days prior to the event date. No event promotion or execution may begin without
+            written consent from the Dean of Student Affairs.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500" data-aos="fade-left">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Financial Integrity</h3>
+          <p class="text-gray-600">All councils must maintain a transparent and detailed record of expenditures. Budgets
+            must be submitted for approval pre-event, and a comprehensive financial report must be filed within 7 days
+            post-event.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500" data-aos="fade-right">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Code of Conduct</h3>
+          <p class="text-gray-600">All participants and organizers must adhere to the RGIPT code of conduct. Any form of
+            harassment, discrimination, or unsafe behavior is strictly prohibited and will result in immediate
+            disciplinary action.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500" data-aos="fade-left">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Use of Institute Branding</h3>
+          <p class="text-gray-600">The official RGIPT and SAC logos may only be used on promotional materials after the
+            design has been approved by the faculty convenor. Unauthorized use of institute branding is not permitted.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-500" data-aos="fade-right">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Venue & Resource Management</h3>
+          <p class="text-gray-600">Organizers are responsible for the booking, setup, and subsequent cleaning of any
+            venue used. Any damage to SAC resources or institute property will be billed to the organizing council.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-500" data-aos="fade-left">
+          <h3 class="text-xl font-semibold mb-2 text-gray-800">Post-Event Reporting</h3>
+          <p class="text-gray-600">A mandatory post-event report, including attendance figures, outcomes, and feedback,
+            must be submitted to the SAC office within 10 days of the event's conclusion. This is crucial for future
+            planning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="notices" class="full-height-section py-16 px-6 md:px-16 bg-blue-50">
+    <div class="max-w-6xl mx-auto w-full">
+      <h2 class="text-4xl font-bold mb-10 text-center text-blue-800" data-aos="fade-down">SAC Announcements</h2>
+      <div class="relative">
+        <div
+          class="slider-container flex snap-x overflow-x-hidden p-4 space-x-6 rounded-xl shadow-2xl bg-white border border-blue-200">
+          <div id="slide-1"
+            class="slider-item bg-red-50 border-l-4 border-red-500 p-6 rounded-lg shadow-md flex-none w-full">
+            <div class="flex items-center mb-3">
+              <svg class="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h.01a1 1 0 100-2H10V9a1 1 0 00-1-1z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-bold text-lg text-red-600">MEGA ANNOUNCEMENT!</span>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900 mb-2">Urja Sangam Is Here!</p>
+            <p class="text-lg text-gray-700">We're combining all major fests: Urjotsav (Tech), Kalatarang (Cultural),
+              and Energia (Sports) into a single, massive week-long celebration!</p>
+            <a href="#events" class="text-red-500 hover:underline mt-2 inline-block font-semibold">See Dates & Details
+              →</a>
+          </div>
+          <div id="slide-2"
+            class="slider-item bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg shadow-md flex-none w-full">
+            <div class="flex items-center mb-3">
+              <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10 2a8 8 0 100 16 8 8 0 000-16zm-1 9V8a1 1 0 012 0v3a1 1 0 11-2 0zm1 4a1 1 0 100-2 1 1 0 000 2z">
+                </path>
+              </svg>
+              <span class="font-bold text-lg text-purple-600">S&T Council</span>
+            </div>
+            <p class="text-xl font-semibold text-gray-900 mb-2">Check Out Code Sprint!</p>
+            <p class="text-gray-700">An intuitive platform to engage students in Data Structures & Algorithms (DSA) and
+              Competitive Programming (CP). Join the race to solve, learn, and master!</p>
+            <a href="#" class="text-purple-500 hover:underline mt-2 inline-block">Learn More →</a>
+          </div>
+          <div id="slide-3"
+            class="slider-item bg-green-50 border-l-4 border-green-500 p-6 rounded-lg shadow-md flex-none w-full">
+            <div class="flex items-center mb-3">
+              <svg class="w-6 h-6 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="font-bold text-lg text-green-600">General Announcement</span>
+            </div>
+            <p class="text-xl font-semibold text-gray-900 mb-2">New SAC Portal Live</p>
+            <p class="text-gray-700">The updated SAC portal is now active for event proposals and resource bookings.
+              Check it out and provide your feedback!</p>
+            <a href="#" class="text-green-500 hover:underline mt-2 inline-block">Go to Portal →</a>
+          </div>
+        </div>
+        <div class="flex justify-center mt-4 space-x-2 absolute bottom-2 left-1/2 transform -translate-x-1/2">
+          <button class="w-3 h-3 bg-gray-400 rounded-full hover:bg-gray-600 transition"
+            onclick="scrollToSlide(1)"></button>
+          <button class="w-3 h-3 bg-gray-400 rounded-full hover:bg-gray-600 transition"
+            onclick="scrollToSlide(2)"></button>
+          <button class="w-3 h-3 bg-gray-400 rounded-full hover:bg-gray-600 transition"
+            onclick="scrollToSlide(3)"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="events"
+    class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-900 text-white"
+    style="background-image: linear-gradient(rgba(17, 24, 39, 0.95), rgba(17, 24, 39, 0.95)), url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=1740'); background-size: cover; background-position: center;">
+    <div class="max-w-6xl mx-auto px-6 md:px-16 text-center">
+      <h2 class="text-6xl md:text-8xl font-extrabold gradient-text" data-aos="zoom-in">URJA SANGAM</h2>
+      <p class="text-xl md:text-2xl text-gray-300 mt-4 max-w-3xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
+        A week-long spectacle where technology, culture, and sports converge. The biggest celebration in RGIPT history
+        is here.
+      </p>
+      <div class="mt-12 bg-white/10 backdrop-blur-md inline-block p-4 rounded-lg" data-aos="fade-up"
+        data-aos-delay="400">
+        <p class="text-2xl md:text-4xl font-bold text-yellow-300 tracking-wider">NOVEMBER 10th to 16th</p>
+      </div>
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div
+          class="group bg-gray-800/60 p-6 rounded-lg border border-gray-700 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:border-blue-500 hover:shadow-blue-500/20"
+          data-aos="fade-up" data-aos-delay="500">
+          <img src="./images/Urja Logo.png" alt="Urjotsav Logo"
+            class="w-20 h-20 rounded-full mx-auto mb-4 bg-black p-2">
+          <h3 class="text-2xl font-bold text-center text-blue-400">Urjotsav</h3>
+          <p class="text-center text-gray-400 mt-2">The Tech Fest</p>
+          <p class="text-gray-300 mt-4 text-sm min-h-[96px]">Experience cutting-edge tech talks, grueling hackathons,
+            and innovative robotics challenges. Where minds meet matter.</p>
+          <div class="mt-4 text-center">
+            <a href="#"
+              class="inline-block bg-blue-500 text-white font-bold text-sm px-6 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">Explore
+              More</a>
+          </div>
+        </div>
+        <div
+          class="group bg-gray-800/60 p-6 rounded-lg border border-gray-700 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:border-red-500 hover:shadow-red-500/20"
+          data-aos="fade-up" data-aos-delay="600">
+          <img src="./images/Kal logo.png" alt="Kalatarang Logo" class="w-20 h-20 rounded-full mx-auto mb-4">
+          <h3 class="text-2xl font-bold text-center text-red-400">Kalatarang</h3>
+          <p class="text-center text-gray-400 mt-2">The Cultural Fest</p>
+          <p class="text-gray-300 mt-4 text-sm min-h-[96px]">Unleash your creativity with dazzling dance-offs,
+            soul-stirring music, and captivating theatrical performances. Where art finds its voice.</p>
+          <div class="mt-4 text-center">
+            <a href="#"
+              class="inline-block bg-red-500 text-white font-bold text-sm px-6 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">Explore
+              More</a>
+          </div>
+        </div>
+        <div
+          class="group bg-gray-800/60 p-6 rounded-lg border border-gray-700 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:border-green-500 hover:shadow-green-500/20"
+          data-aos="fade-up" data-aos-delay="700">
+          <img src="./images/Energia logo.png" alt="Energia Logo" class="w-20 h-20 rounded-full mx-auto mb-4">
+          <h3 class="text-2xl font-bold text-center text-green-400">Energia</h3>
+          <p class="text-center text-gray-400 mt-2">The Sports Fest</p>
+          <p class="text-gray-300 mt-4 text-sm min-h-[96px]">Witness athletic prowess and team spirit in high-stakes
+            tournaments across multiple sports. Where champions are forged.</p>
+          <div class="mt-4 text-center">
+            <a href="#"
+              class="inline-block bg-green-500 text-white font-bold text-sm px-6 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">Explore
+              More</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16" data-aos="fade-up" data-aos-delay="800">
+        <a href="#"
+          class="bg-yellow-400 text-gray-900 font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:bg-yellow-300 transition-transform transform hover:scale-105">View
+          Full Schedule</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="full-height-section bg-white py-24">
+    <div class="max-w-2xl w-full mx-auto p-8" data-aos="zoom-in">
+      <h2 class="text-3xl font-bold mb-6 text-center">Contact SAC</h2>
+      <p class="text-center mb-8 text-gray-600">Have a question or a suggestion? Feel free to reach out to us!</p>
+      <form action="#" method="POST" class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" name="name" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email" name="email" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div>
+          <label for="institution" class="block text-sm font-medium text-gray-700">Institution</label>
+          <input type="text" id="institution" name="institution" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+          <textarea id="message" name="message" rows="4" required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit"
+            class="w-full sm:w-auto px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition">Send
+            Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="max-w-6xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 id="footer-logo" class="text-xl font-bold mb-4 cursor-pointer">SAC • RGIPT</h3>
+        <p class="text-gray-400">Student Activity Center<br>Rajiv Gandhi Institute of Petroleum Technology<br>Jais,
+          Amethi, UP - 229304</p>
+        <span id="sr-credit" class="hidden text-xs text-gray-500 mt-2">Made by SR</span>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#about" class="hover:text-gray-300">About SAC</a></li>
+          <li><a href="#councils" class="hover:text-gray-300">Councils</a></li>
+          <li><a href="#notices" class="hover:text-gray-300">Notices</a></li>
+          <li><a href="#events" class="hover:text-gray-300">Fest Week</a></li>
+          <li><a href="#rules" class="hover:text-gray-300">Rules</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white">Facebook</a>
+          <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
+          <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-gray-500 mt-8">
+      &copy; 2025 SAC • RGIPT. All Rights Reserved • Made By S.R
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 800,
+      once: false,
+      offset: 100
+    });
+
+    VANTA.NET({
+      el: "#hero",
+      mouseControls: true, touchControls: true, gyroControls: false,
+      minHeight: 200.00, minWidth: 200.00, scale: 1.00, scaleMobile: 1.00,
+      color: 0x21ffdc, backgroundColor: 0x232c52, points: 9.00
+    });
+
+    gsap.to("#sac-title", { opacity: 1, scale: 1.2, duration: 1, ease: "bounce" });
+    gsap.to("#expanded-title", { opacity: 1, delay: 1.5, duration: 1 });
+
+    new Typed("#typing-text", {
+      strings: [
+        "Beyond academics — we build leaders, events, and vibes. Join us for tech, culture, sports, and social action.",
+        "Your adventure begins here: connect, create, and lead at the heart of campus life."
+      ],
+      typeSpeed: 40, backSpeed: 20, backDelay: 1500, loop: true, showCursor: false
+    });
+
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      const y = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: y - 80, behavior: 'smooth' });
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.style.display = 'none';
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'block';
+      } else {
+        menu.style.display = 'none';
+      }
+    }
+
+    function scrollToSlide(slideNumber) {
+      const slider = document.querySelector('.slider-container');
+      const slide = document.getElementById('slide-' + slideNumber);
+      if (slider && slide) {
+        slider.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' });
+      }
+    }
+
+    const slider = document.querySelector('.slider-container');
+    let scrollInterval;
+    const startScroll = () => {
+      if (slider) {
+        scrollInterval = setInterval(() => {
+          const { scrollLeft, clientWidth, scrollWidth } = slider;
+          let nextScroll = scrollLeft + clientWidth;
+          if (nextScroll >= scrollWidth) {
+            nextScroll = 0;
+          }
+          slider.scrollTo({ left: nextScroll, behavior: 'smooth' });
+        }, 4000);
+      }
+    };
+    startScroll();
+    if (slider) {
+      slider.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+      slider.addEventListener('mouseleave', startScroll);
+    }
+
+    document.getElementById('footer-logo').addEventListener('click', function () {
+      document.getElementById('sr-credit').classList.toggle('hidden');
+    });
+  </script>
+</body>
+
+</html>
