@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         once: true,
     });
 
+    // --- Hero Background Slider ---
     const heroSection = document.querySelector('.hero-section');
     if (heroSection) {
         const heroBackgroundImages = [
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         };
         
-        setHeroBackground(heroBackgroundImages[0]);
+        setHeroBackground(heroBackgroundImages[0]); // Preload first image
 
         function cycleHeroBackground() {
             currentHeroImageIndex = (currentHeroImageIndex + 1) % heroBackgroundImages.length;
@@ -32,13 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(cycleHeroBackground, 5000);
     }
 
+    // --- Smooth Scroll for Nav Links ---
     document.querySelectorAll('.main-nav a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const headerOffset = 120;
+                const headerOffset = 70; // Adjust for sticky nav height
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 window.scrollTo({ top: offsetPosition, behavior: "smooth" });
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Tab Functionality ---
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.club-tab-content');
 
@@ -59,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Animated Counter ---
     const counters = document.querySelectorAll('.counter');
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
@@ -85,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counters.forEach(counter => observer.observe(counter));
 
+    // --- Back to Top Button ---
     const backToTopButton = document.querySelector(".back-to-top");
     window.addEventListener("scroll", () => {
         if (window.pageYOffset > 300) {
@@ -94,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Image Gallery Lightbox ---
     const gallery = document.getElementById('lightgallery');
     if (gallery) {
         lightGallery(gallery, {
